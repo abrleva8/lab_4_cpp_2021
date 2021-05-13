@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <iostream>
 
 class Text {
 private:
@@ -26,7 +27,7 @@ public:
 	Text(std::vector<std::string> data);
 	Text();
 	void print();
-	void print_info();
+	void print_info(std::ostream* stream = &std::cout);
 };
 
 #endif

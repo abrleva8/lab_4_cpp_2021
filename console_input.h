@@ -10,6 +10,8 @@ class ConsoleInput : public Input {
 private:
 	const std::string END = "end";
 public:
+
+	ConsoleInput();
 	// Реализация метода из класса @Input
 	virtual bool read(Text &text);
 

@@ -142,12 +142,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="console_input.cpp" />
+    <ClCompile Include="file_input.cpp" />
+    <ClCompile Include="file_output.cpp" />
+    <ClCompile Include="input.cpp" />
     <ClCompile Include="menu.cpp" />
     <ClCompile Include="start.cpp" />
     <ClCompile Include="text_analyzer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="console_input.h" />
+    <ClInclude Include="file_input.h" />
+    <ClInclude Include="file_output.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="text_analyzer.h" />

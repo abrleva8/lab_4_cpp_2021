@@ -1,6 +1,8 @@
 #include "menu.h"
 #include "text_analyzer.h"
 #include "console_input.h"
+#include "file_input.h"
+#include "file_output.h"
 #include <iostream>
 
 void greetings() {
@@ -26,27 +28,25 @@ void print_menu() {
 void interface_menu() {
 	bool is_restart = true;
 	ConsoleInput ci;
+	FileOutput fo;
+	Input *input = nullptr;
 
 	do {
 		print_menu();
 		int choice = ci.get_number(static_cast<int> (EXIT), static_cast<int> (TEST));
 		switch (choice) {
 			case EXIT:
-			std::cout << "Your choice is EXIT" << std::endl;
-			is_restart = false;
-			continue;
-			break;
-
+				std::cout << "Your choice is EXIT" << std::endl;
+				is_restart = false;
+				continue;
+				break;
 			case CONSOLE:{
-				Text *text = new Text();
-				ci.read(*text);
-				text->print();
-				text->print_info();
+				input = new ConsoleInput();
 			}
 			break;
 
-			case FILES:{
-				
+			case FILES: {
+				input = new FileInput();
 			}
 			break;
 
@@ -54,6 +54,16 @@ void interface_menu() {
 			}
 			break;
 		}
-
+		std::unique_ptr<Text> text(new Text);
+		bool is_success = input->read(*text);
+		//bool is_file_input = input->get_is_file_input();
+		if (is_success) {
+			std::cout << std::endl << "Data read successfully!" << std::endl;
+		} else {
+			continue;
+		}
+		text->print_info();
+		fo.save_output_data(*text);
+		
 	} while (is_restart);
 }

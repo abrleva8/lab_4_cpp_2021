@@ -3,9 +3,14 @@
 #include <iostream>
 #include <string>
 
+ConsoleInput::ConsoleInput() {
+	this->is_file_input = false;
+}
+
 bool ConsoleInput::read(Text &text) {
 	std::vector<std::string> data;
 	std::string str;
+	std::cout << "Enter \"end\" to finish input." << std::endl;
 	getline(std::cin, str);
 	while (str.compare(END) != 0) {
 		data.push_back(str);

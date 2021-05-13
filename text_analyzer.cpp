@@ -48,8 +48,8 @@ void Text::count_visible_symbols() {
 
 void Text::count_number_of_words() {
 	int result = 0;
-	bool is_new_word = false;
 	for (auto str : this->data) {
+		bool is_new_word = false;
 		for (int i = 0; i < str.size(); i++) {
 			if (is_letter(str[i])) {
 				if (i == str.size() - 1) {
@@ -73,25 +73,25 @@ void Text::print() {
 	}
 }
 
-void Text::print_info() {
-	std::cout << "The numbers of symbols in the text equals " << this->number_of_symbols << std::endl;
-	std::cout << "The numbers of visible symbols in the text equals " << this->number_of_visible_symbols << std::endl;
-	std::cout << "The numbers of words in the text equals " << this->number_of_words << std::endl;
-	std::cout << "The numbers of lines in the text equals " << this->number_of_lines << std::endl;
-	std::cout << "The numbers of paragraphs in the text equals " << this->number_of_paragraphs << std::endl;
+void Text::print_info(std::ostream* stream) {
+	*stream << "The numbers of symbols in the text equals " << this->number_of_symbols << std::endl;
+	*stream << "The numbers of visible symbols in the text equals " << this->number_of_visible_symbols << std::endl;
+	*stream << "The numbers of words in the text equals " << this->number_of_words << std::endl;
+	*stream << "The numbers of lines in the text equals " << this->number_of_lines << std::endl;
+	*stream << "The numbers of paragraphs in the text equals " << this->number_of_paragraphs << std::endl;
 }
 
 void Text::count_number_of_paragraphs() {
 	int result = 0;
 	char tab = '\t';
-	bool is_last_tab = false;
 	for (auto str : data) {
+		bool is_last_tab = false;
 		for (int i = 0; i < str.size(); i++) {
 			if (str[i] == tab) {
 				if (!is_last_tab) {
 					result++;
 					is_last_tab = true;
-			}
+				}
 			} else {
 				is_last_tab = false;
 			}

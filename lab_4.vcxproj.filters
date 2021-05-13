@@ -27,6 +27,15 @@
     <ClCompile Include="console_input.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="file_input.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="input.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="file_output.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="menu.h">
@@ -39,6 +48,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="console_input.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="file_input.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="file_output.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

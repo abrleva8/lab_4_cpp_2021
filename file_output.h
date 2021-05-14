@@ -19,11 +19,11 @@ private:
 	bool is_file_exist(std::string filename);
 
 	// Записывает в данный файл входные данные
-	//void write_input_data_to_file(std::ofstream& fout, Matrix matrix);
+	void write_input_data_to_file(std::ofstream& fout, Text text);
 
 	// Метод, который сохраняет входные данные в файл
 	// Если что-то не получилось возвращает @false
-	//bool save_input_data_to_file(Text text);
+	bool save_input_data_to_file(Text text);
 
 	// Метод, который сохраняет выходные данные в файл
 	// Если что-то не получилось возвращает @false
@@ -33,7 +33,7 @@ private:
 	void write_output_data_to_file(std::ofstream& fout, Text text);
 public:
 	// Метод запускающий процедуру сохранения входных данных в файл
-	//void save_input_data(Matrix matrix);
+	void save_input_data(Text text);
 
 	// Метод запускающий процедуру сохранения выходных данных в файл
 	void save_output_data(Text text);

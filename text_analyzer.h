@@ -26,7 +26,7 @@ private:
 public:
 	Text(std::vector<std::string> data);
 	Text();
-	void print();
+	void print(std::ostream* stream = &std::cout);
 	void print_info(std::ostream* stream = &std::cout);
 };
 

@@ -67,9 +67,9 @@ void Text::count_number_of_words() {
 	this->number_of_words = result;
 }
 
-void Text::print() {
+void Text::print(std::ostream* stream) {
 	for (auto str : data) {
-		std::cout << str << std::endl;
+		*stream << str << std::endl;
 	}
 }
 

@@ -56,11 +56,14 @@ void interface_menu() {
 		}
 		std::unique_ptr<Text> text(new Text);
 		bool is_success = input->read(*text);
-		//bool is_file_input = input->get_is_file_input();
+		bool is_file_input = input->get_is_file_input();
 		if (is_success) {
 			std::cout << std::endl << "Data read successfully!" << std::endl;
 		} else {
 			continue;
+		}
+		if (!is_file_input) {
+			fo.save_input_data(*text);
 		}
 		text->print_info();
 		fo.save_output_data(*text);

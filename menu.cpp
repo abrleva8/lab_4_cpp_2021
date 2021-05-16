@@ -66,6 +66,7 @@ void interface_menu() {
 			fo.save_input_data(*text);
 		}
 		text->print_info();
+		text->print_sentences_info();
 		fo.save_output_data(*text);
 		
 	} while (is_restart);

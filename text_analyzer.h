@@ -30,6 +30,7 @@ private:
 	static bool is_end_symbol(char c);
 	static bool is_visible(char c);
 	bool is_letter(char c);
+	bool has_sentence();
 	static bool is_capital_letter(char c);
 
 public:

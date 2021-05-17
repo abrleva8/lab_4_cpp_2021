@@ -34,6 +34,10 @@ bool Text::is_letter(char c) {
 	return 'a' <= c && c <= 'z' || is_capital_letter(c);
 }
 
+bool Text::has_sentence() {
+	return this->sentences.size() > 0;
+}
+
 bool Text::is_capital_letter(char c) {
 	return 'A' <= c && c <= 'Z';
 }
@@ -121,8 +125,19 @@ void Text::print_sentences(std::ostream* stream) {
 }
 
 void Text::print_sentences_info(std::ostream* stream) {
-	for (auto it = sentence_data.begin(); it != sentence_data.end(); ++it)
-		*stream << it->first << " => " << it->second << std::endl;
+	if (this->has_sentence() > 0) {
+		*stream << "The table of sentence frequency" << std::endl;
+		*stream << "Number of words\t" << "Number of sentence" << std::endl;
+		for (auto it = sentence_data.begin(); it != sentence_data.end(); ++it) {
+			*stream << "\t" << it->first << "\t\t";
+			if (stream->rdbuf() != std::cout.rdbuf()) {
+				*stream << "\t\t\t";
+			}
+			*stream << it->second << std::endl;
+		}
+	} else{
+		*stream << "There are no sentences" << std::endl;
+	}
 }
 
 void Text::count_number_of_paragraphs() {

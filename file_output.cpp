@@ -77,6 +77,8 @@ bool FileOutput::save_output_data_to_file(Text text) {
 
 void FileOutput::write_output_data_to_file(std::ofstream& fout, Text text) {
 	text.print_info(&fout);
+	fout << std::endl;
+	text.print_sentences_info(&fout);
 }
 
 void FileOutput::save_input_data(Text text) {

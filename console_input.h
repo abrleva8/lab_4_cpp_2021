@@ -6,19 +6,19 @@
 #include <iostream>
 
 // Класс для работы с консольный вводом
-class ConsoleInput final : public Input {
+class ConsoleInput : public Input {
 private:
 	const std::string END = "end";
 public:
 
 	ConsoleInput();
 	// Реализация метода из класса @Input
-	virtual bool read(Text &text) override;
+	virtual bool read(Text &text);
 
 	// Спрашивает у пользователя "да" или "нет"
 	// Если введено 'y' -  возвращает @true
 	// Если введено 'n' -  возвращает @false
-	bool is_choice_yes() const;
+	bool is_choice_yes();
 
 	// Шаблонный метод который возвращает число
 	// Работает с базовыми типами данных

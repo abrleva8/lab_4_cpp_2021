@@ -5,8 +5,9 @@
 #include <fstream>
 #include <filesystem>
 
-void FileOutput::try_overwrite_file(std::string& filename) const {
-	if (std::error_code ec; !std::filesystem::is_regular_file(filename, ec)) {
+void FileOutput::try_overwrite_file(std::string& filename) {
+	std::error_code ec;
+	if (!std::filesystem::is_regular_file(filename, ec)) {
 		return;
 	}
 	bool is_overwrite = false;
@@ -22,8 +23,8 @@ void FileOutput::try_overwrite_file(std::string& filename) const {
 	}
 }
 
-bool FileOutput::is_file_exist(const std::string filename) {
-	const std::ifstream infile(filename);
+bool FileOutput::is_file_exist(std::string filename) {
+	std::ifstream infile(filename);
 	return infile.good();
 }
 
@@ -33,12 +34,13 @@ void FileOutput::write_input_data_to_file(std::ofstream& fout, Text text) {
 
 bool FileOutput::save_input_data_to_file(Text text) {
 	std::cout << "Please, input the filename:" << std::endl;
-	std::string filename;
+	std::string filename = "";
 	getline(std::cin, filename);
 	try_overwrite_file(filename);
 	std::ofstream fout(filename);
 	if (fout.is_open()) {
-		if (std::error_code ec; !std::filesystem::is_regular_file(filename, ec)) {
+		std::error_code ec;
+		if (!std::filesystem::is_regular_file(filename, ec)) {
 			std::cerr << "Sorry, there is a problem with file." << std::endl;
 			return false;
 		}
@@ -51,15 +53,16 @@ bool FileOutput::save_input_data_to_file(Text text) {
 	return true;
 }
 
-bool FileOutput::save_output_data_to_file(const Text text) {
+bool FileOutput::save_output_data_to_file(Text text) {
 	std::cout << "Please input the filename:" << std::endl;
-	std::string filename;
+	std::string filename = "";
 	std::getline(std::cin, filename);
 	try_overwrite_file(filename);
 	std::ofstream fout(filename);
 
 	if (fout.is_open()) {
-		if (std::error_code ec; !std::filesystem::is_regular_file(filename, ec)) {
+		std::error_code ec;
+		if (!std::filesystem::is_regular_file(filename, ec)) {
 			std::cout << "Sorry, there is a problem with file." << std::endl;
 			return false;
 		}
@@ -74,15 +77,14 @@ bool FileOutput::save_output_data_to_file(const Text text) {
 
 void FileOutput::write_output_data_to_file(std::ofstream& fout, Text text) {
 	text.print_info(&fout);
-	fout << std::endl;
-	text.print_sentences_info(&fout);
 }
 
 void FileOutput::save_input_data(Text text) {
 	std::cout << "Do you want to save input data to file? Input please y/n." << std::endl;
-	const ConsoleInput ci;
+	ConsoleInput ci;
+	bool is_yes = ci.is_choice_yes();
 
-	if (const bool is_yes = ci.is_choice_yes(); is_yes) {
+	if (is_yes) {
 		bool is_success = save_input_data_to_file(text);
 
 		while (!is_success) {
@@ -96,9 +98,10 @@ void FileOutput::save_input_data(Text text) {
 
 void FileOutput::save_output_data(Text text) {
 	std::cout << "Do you want to save result to file? Input please y/n:" << std::endl;
-	const ConsoleInput ci;
+	ConsoleInput ci;
+	bool is_yes = ci.is_choice_yes();
 
-	if (const bool is_yes = ci.is_choice_yes(); is_yes) {
+	if (is_yes) {
 		bool is_success = save_output_data_to_file(text);
 
 		while (!is_success) {

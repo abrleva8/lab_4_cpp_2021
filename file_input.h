@@ -7,16 +7,16 @@
 #include "text_analyzer.h"
 
 // Класс, реализующий чтение из файла массива
-class FileInput final : public Input {
+class FileInput : public Input {
 private:
 
 	// Процесс чтения из файла, на корректном файле
-	bool read_data_from_file(std::ifstream& file, Text& text) const;
+	bool read_data_from_file(std::ifstream& file, Text& text);
 
 public:
 	FileInput();
 	// Реализация метода класса @Input
-	bool read(Text& text) override;
+	bool read(Text& text);
 
 };
 

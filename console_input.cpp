@@ -12,7 +12,7 @@ bool ConsoleInput::read(Text &text) {
 	std::string str;
 	std::cout << "Enter \"end\" to finish input." << std::endl;
 	getline(std::cin, str);
-	while (str.compare(END) != 0) {
+	while (str != END) {
 		data.push_back(str);
 		getline(std::cin, str);
 	}
@@ -20,12 +20,12 @@ bool ConsoleInput::read(Text &text) {
 	return true;
 }
 
-bool ConsoleInput::is_choice_yes() {
+bool ConsoleInput::is_choice_yes() const {
 	std::string save;
 	std::getline(std::cin, save);
-	while (save.compare("y") != 0 && save.compare("n") != 0) {
+	while (save == "y" && save != "n") {
 		std::cout << "Wrong input. Please input y/n" << std::endl;
 		std::getline(std::cin, save);
 	}
-	return save.compare("n");
+	return save == "n";
 }

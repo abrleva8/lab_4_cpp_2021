@@ -1,5 +1,5 @@
 #ifndef _TEXT_ANALYZER_H_
-#define _TEXT_ANALYZER_H_
+#define TEXT_ANALYZER_H
 
 #include <vector>
 #include <map>
@@ -8,14 +8,14 @@
 
 class Text {
 private:
-	std::vector<std::string> data;
-	std::vector<std::string> sentences;
-	std::map<int, int> sentence_data;
-	int number_of_symbols = 0;
-	int number_of_visible_symbols = 0;
-	int number_of_words = 0;
-	int number_of_lines = 0;
-	int number_of_paragraphs = 0;
+	std::vector<std::string> data_;
+	std::vector<std::string> sentences_;
+	std::map<int, int> sentence_data_;
+	int number_of_symbols_ = 0;
+	int number_of_visible_symbols_ = 0;
+	int number_of_words_ = 0;
+	int number_of_lines_ = 0;
+	int number_of_paragraphs_ = 0;
 
 	void count_symbols();
 	void count_visible_symbols();
@@ -27,13 +27,13 @@ private:
 	void set_sentences();
 	void set_data_sentences();
 
-	bool is_end_symbol(char c);
-	bool is_visible(char c);
+	static bool is_end_symbol(char c);
+	static bool is_visible(char c);
 	bool is_letter(char c);
-	bool is_capital_letter(char c);
+	static bool is_capital_letter(char c);
 
 public:
-	Text(std::vector<std::string> data);
+	explicit Text(std::vector<std::string> data);
 	Text();
 	void print(std::ostream* stream = &std::cout);
 	void print_info(std::ostream* stream = &std::cout);

@@ -29,38 +29,41 @@ void interface_menu() {
 	bool is_restart = true;
 	ConsoleInput ci;
 	FileOutput fo;
-	Input *input = nullptr;
+	std::unique_ptr<Input> input;
 
 	do {
 		print_menu();
-		int choice = ci.get_number(static_cast<int> (EXIT), static_cast<int> (TEST));
-		switch (choice) {
+		switch (const int choice = ci.get_number(static_cast<int> (EXIT), static_cast<int> (TEST)); choice) {
 			case EXIT:
 				std::cout << "Your choice is EXIT" << std::endl;
 				is_restart = false;
 				continue;
-				break;
 			case CONSOLE:{
-				input = new ConsoleInput();
+				input.reset(new ConsoleInput());
 			}
 			break;
 
 			case FILES: {
-				input = new FileInput();
+				input.reset(new FileInput());
 			}
 			break;
 
 			case TEST:{
 			}
 			break;
+			default:
+			break;
 		}
 		std::unique_ptr<Text> text(new Text);
-		bool is_success = input->read(*text);
-		bool is_file_input = input->get_is_file_input();
+		const bool is_success = input->read(*text);
+		const bool is_file_input = input->get_is_file_input();
 		if (is_success) {
 			std::cout << std::endl << "Data read successfully!" << std::endl;
 		} else {
 			continue;
+		}
+		if (is_file_input) {
+			text->print();
 		}
 		if (!is_file_input) {
 			fo.save_input_data(*text);

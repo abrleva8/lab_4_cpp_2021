@@ -1,5 +1,5 @@
 #ifndef _FILE_OUTPUT_H_
-#define _FILE_OUTPUT_H_
+#define FILE_OUTPUT_H
 
 #include <string>
 #include <vector>
@@ -13,13 +13,13 @@ private:
 	// Проверяет ли файл с именем @filename
 	// Если есть - уточняет стоит ли перезаписывать
 	// Если нет - ничего не делает
-	void try_overwrite_file(std::string& filename);
+	void try_overwrite_file(std::string& filename) const;
 
 	// Возвращает, существует ли файл с именем/путем @filename
-	bool is_file_exist(std::string filename);
+	static bool is_file_exist(std::string filename);
 
 	// Записывает в данный файл входные данные
-	void write_input_data_to_file(std::ofstream& fout, Text text);
+	static void write_input_data_to_file(std::ofstream& fout, Text text);
 
 	// Метод, который сохраняет входные данные в файл
 	// Если что-то не получилось возвращает @false
@@ -30,7 +30,7 @@ private:
 	bool save_output_data_to_file(Text text);
 
 	// Записывает в данный файл выходные данные
-	void write_output_data_to_file(std::ofstream& fout, Text text);
+	static void write_output_data_to_file(std::ofstream& fout, Text text);
 public:
 	// Метод запускающий процедуру сохранения входных данных в файл
 	void save_input_data(Text text);

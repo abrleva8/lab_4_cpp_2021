@@ -13,7 +13,7 @@ void FileOutput::try_overwrite_file(std::string& filename) {
 	bool is_overwrite = false;
 
 	while (is_file_exist(filename) && !is_overwrite) {
-		std::cout << "The file with same name is exist. Are you sure to want overwrite the file? Input please y/n." << std::endl;
+		std::cout << "The file with same name exists. Are you sure to want overwrite the file? Input please y/n." << std::endl;
 		ConsoleInput ci;
 		is_overwrite = ci.is_choice_yes();
 		if (!is_overwrite) {
@@ -111,4 +111,3 @@ void FileOutput::save_output_data(Text text) {
 		std::cout << "The data saved successfully!" << std::endl;
 	}
 }
-

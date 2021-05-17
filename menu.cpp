@@ -11,10 +11,10 @@ void greetings() {
 
 	std::cout << "The problem is: " << std::endl << std::endl;
 
-	std::cout <<"Count the number of characters, words, lines, paragraphs in the given text." << std::endl <<
-				"Calculate the number of words in sentences and display a statistical table in which" << std::endl <<
-				"the length of a sentence in words will correspond to the number of such sentences in the analyzed text."
-	<< std::endl << std::endl;
+	std::cout << "Count the number of characters, words, lines, paragraphs in the given text." << std::endl <<
+		"Calculate the number of words in sentences and display a statistical table in which" << std::endl <<
+		"the length of a sentence in words will correspond to the number of such sentences in the analyzed text."
+		<< std::endl << std::endl;
 }
 
 void print_menu() {
@@ -29,28 +29,31 @@ void interface_menu() {
 	bool is_restart = true;
 	ConsoleInput ci;
 	FileOutput fo;
-	Input *input = nullptr;
+	Input* input = nullptr;
 
 	do {
 		print_menu();
 		int choice = ci.get_number(static_cast<int> (EXIT), static_cast<int> (TEST));
 		switch (choice) {
 			case EXIT:
-				std::cout << "Your choice is EXIT" << std::endl;
-				is_restart = false;
-				continue;
-				break;
-			case CONSOLE:{
+			std::cout << "Your choice is EXIT" << std::endl;
+			is_restart = false;
+			continue;
+			break;
+			case CONSOLE:
+			{
 				input = new ConsoleInput();
 			}
 			break;
 
-			case FILES: {
+			case FILES:
+			{
 				input = new FileInput();
 			}
 			break;
 
-			case TEST:{
+			case TEST:
+			{
 			}
 			break;
 		}
@@ -66,7 +69,8 @@ void interface_menu() {
 			fo.save_input_data(*text);
 		}
 		text->print_info();
+		text->print_sentences_info();
 		fo.save_output_data(*text);
-		
+
 	} while (is_restart);
 }

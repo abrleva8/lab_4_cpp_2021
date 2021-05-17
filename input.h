@@ -11,7 +11,7 @@ public:
 	// Контракт метода:
 	// 1 - Записать в поле @matrix - матрицу
 	// 2 - Вернуть успешно или нет
-	virtual bool read(Text &text) = 0;
+	virtual bool read(Text& text) = 0;
 
 	bool get_is_file_input();
 

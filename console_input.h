@@ -13,7 +13,7 @@ public:
 
 	ConsoleInput();
 	// Реализация метода из класса @Input
-	virtual bool read(Text &text);
+	virtual bool read(Text& text);
 
 	// Спрашивает у пользователя "да" или "нет"
 	// Если введено 'y' -  возвращает @true

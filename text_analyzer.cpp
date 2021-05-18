@@ -3,8 +3,8 @@
 #include <iostream>
 #include <sstream>
 
-Text::Text(std::vector<std::string> data) {
-	this->data = data;
+Text::Text(const std::vector<std::string>& data) {
+	this->data_ = data;
 	this->count_number_of_lines();
 	this->count_symbols();
 	this->count_visible_symbols();
@@ -15,52 +15,60 @@ Text::Text(std::vector<std::string> data) {
 	this->set_data_sentences();
 }
 
-Text::Text() {
+Text::Text() = default;
+
+bool Text::is_good_data(const std::string& line) {
+	for (const auto chr : line) {
+		if (chr < ' ' || chr > '~') {
+			return false;
+		}
+	}
+	return true;
 }
 
 void Text::count_number_of_lines() {
-	this->number_of_lines = data.size();
+	this->number_of_lines_ = static_cast<int>(data_.size());
 }
 
-bool Text::is_end_symbol(char c) {
+bool Text::is_end_symbol(const char c) {
 	return c == '.' || c == '!' || c == '?';
 }
 
-bool Text::is_visible(char c) {
+bool Text::is_visible(const char c) {
 	return '!' <= c && c <= '~';
 }
 
-bool Text::is_letter(char c) {
+bool Text::is_letter(const char c) {
 	return 'a' <= c && c <= 'z' || is_capital_letter(c);
 }
 
-bool Text::has_sentence() {
-	return this->sentences.size() > 0;
+bool Text::has_sentence() const  {
+	return !this->sentences_.empty();
 }
 
-bool Text::is_capital_letter(char c) {
+bool Text::is_capital_letter(const char c) {
 	return 'A' <= c && c <= 'Z';
 }
 
 void Text::count_symbols() {
 	int result = 0;
-	for (const auto& str : this->data) {
-		result += str.size();
+	for (const auto& str : this->data_) {
+		result += static_cast<int>(str.size());
 	}
-	result += this->number_of_lines;
-	this->number_of_symbols = result;
+	result += this->number_of_lines_;
+	this->number_of_symbols_ = result;
 }
 
 void Text::count_visible_symbols() {
 	int result = 0;
-	for (const auto& str : this->data) {
+	for (const auto& str : this->data_) {
 		for (auto ch : str) {
 			if (is_visible(ch)) {
 				result++;
 			}
 		}
 	}
-	this->number_of_visible_symbols = result;
+	this->number_of_visible_symbols_ = result;
 }
 
 int Text::count_number_of_words(std::string str) {
@@ -85,16 +93,16 @@ int Text::count_number_of_words(std::string str) {
 
 void Text::count_number_of_words() {
 	int result = 0;
-	for (const auto& str : this->data) {
+	for (const auto& str : this->data_) {
 		result += count_number_of_words(str);
 	}
-	this->number_of_words = result;
+	this->number_of_words_ = result;
 }
 
 void Text::print(std::ostream* stream) {
-	size_t size = data.size();
-	for (size_t i = 0; i < data.size(); i++) {
-		*stream << data[i];
+	const size_t size = data_.size();
+	for (size_t i = 0; i < data_.size(); i++) {
+		*stream << data_[i];
 		if (i != size - 1) {
 			*stream << std::endl;
 		} else {
@@ -107,28 +115,28 @@ void Text::print(std::ostream* stream) {
 	}
 }
 
-void Text::print_info(std::ostream* stream) {
-	*stream << "The numbers of symbols in the text equals " << this->number_of_symbols << std::endl;
-	*stream << "The numbers of visible symbols in the text equals " << this->number_of_visible_symbols << std::endl;
-	*stream << "The numbers of words in the text equals " << this->number_of_words << std::endl;
-	*stream << "The numbers of lines in the text equals " << this->number_of_lines << std::endl;
-	*stream << "The numbers of paragraphs in the text equals " << this->number_of_paragraphs;
+void Text::print_info(std::ostream* stream) const {
+	*stream << "The numbers of symbols in the text equals " << this->number_of_symbols_ << std::endl;
+	*stream << "The numbers of visible symbols in the text equals " << this->number_of_visible_symbols_ << std::endl;
+	*stream << "The numbers of words in the text equals " << this->number_of_words_ << std::endl;
+	*stream << "The numbers of lines in the text equals " << this->number_of_lines_ << std::endl;
+	*stream << "The numbers of paragraphs in the text equals " << this->number_of_paragraphs_;
 	if (stream->rdbuf() == std::cout.rdbuf()) {
 		*stream << std::endl;
 	}
 }
 
 void Text::print_sentences(std::ostream* stream) {
-	for (const auto& str : this->sentences) {
+	for (const auto& str : this->sentences_) {
 		std::cout << str << std::endl;
 	}
 }
 
 void Text::print_sentences_info(std::ostream* stream) {
-	if (this->has_sentence() > 0) {
+	if (this->has_sentence()) {
 		*stream << "The table of sentence frequency" << std::endl;
 		*stream << "Number of words\t" << "Number of sentence" << std::endl;
-		for (auto it = sentence_data.begin(); it != sentence_data.end(); ++it) {
+		for (auto it = sentence_data_.begin(); it != sentence_data_.end(); ++it) {
 			*stream << "\t" << it->first << "\t\t";
 			if (stream->rdbuf() != std::cout.rdbuf()) {
 				*stream << "\t\t\t";
@@ -140,9 +148,19 @@ void Text::print_sentences_info(std::ostream* stream) {
 	}
 }
 
+int* Text::get_info() const {
+	const auto result = new int[5];
+	result[0] = this->number_of_symbols_;
+	result[1] = this->number_of_visible_symbols_;
+	result[2] = this->number_of_words_;
+	result[3] = this->number_of_lines_;
+	result[4] = this->number_of_paragraphs_;
+	return result;
+}
+
 void Text::count_number_of_paragraphs() {
 	int result = 0;
-	for (const auto& str : data) {
+	for (const auto& str : data_) {
 		bool is_last_tab = false;
 		for (char i : str) {
 			if (const char tab = '\t'; i == tab) {
@@ -155,13 +173,13 @@ void Text::count_number_of_paragraphs() {
 			}
 		}
 	}
-	this->number_of_paragraphs = result;
+	this->number_of_paragraphs_ = result;
 }
 
 void Text::set_sentences() {
 
 	std::stringstream ss;
-	for (auto str : this->data) {
+	for (auto str : this->data_) {
 		size_t start_sentence = -1;
 		size_t end_sentence = -1;
 		for (size_t i = 0; i < str.length(); i++) {
@@ -176,7 +194,7 @@ void Text::set_sentences() {
 			}
 
 			if (is_end_symbol(str[i]) && start_sentence != -1) {
-				this->sentences.push_back(ss.str());
+				this->sentences_.push_back(ss.str());
 				ss.str("");
 				start_sentence = -1;
 				end_sentence = -1;
@@ -186,11 +204,11 @@ void Text::set_sentences() {
 }
 
 void Text::set_data_sentences() {
-	for (const auto& str : sentences) {
-		if (int number = count_number_of_words(str); sentence_data.find(number) == sentence_data.end()) {
-			sentence_data.insert(std::pair<int, int>(number, 1));
+	for (const auto& str : sentences_) {
+		if (int number = count_number_of_words(str); sentence_data_.find(number) == sentence_data_.end()) {
+			sentence_data_.insert(std::pair<int, int>(number, 1));
 		} else {
-			sentence_data[number]++;
+			sentence_data_[number]++;
 		}
 	}
 }

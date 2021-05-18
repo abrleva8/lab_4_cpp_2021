@@ -8,17 +8,17 @@
 // Класс для работы с консольный вводом
 class ConsoleInput : public Input {
 private:
-	const std::string END = "end";
+	const std::string end_ = "end";
 public:
 
 	ConsoleInput();
 	// Реализация метода из класса @Input
-	virtual bool read(Text& text);
+	bool read(Text& text) override;
 
 	// Спрашивает у пользователя "да" или "нет"
 	// Если введено 'y' -  возвращает @true
 	// Если введено 'n' -  возвращает @false
-	bool is_choice_yes();
+	[[nodiscard]] bool is_choice_yes() const;
 
 	// Шаблонный метод который возвращает число
 	// Работает с базовыми типами данных

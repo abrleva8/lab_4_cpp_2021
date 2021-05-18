@@ -3,6 +3,7 @@
 #include "console_input.h"
 #include "file_input.h"
 #include "file_output.h"
+#include "test.h"
 #include <iostream>
 
 void greetings() {
@@ -28,38 +29,44 @@ void print_menu() {
 void interface_menu() {
 	bool is_restart = true;
 	ConsoleInput ci;
-	FileOutput fo;
 	Input* input = nullptr;
 
 	do {
+		const FileOutput fo;
 		print_menu();
-		int choice = ci.get_number(static_cast<int> (EXIT), static_cast<int> (TEST));
-		switch (choice) {
+		switch (const int choice = ci.get_number(static_cast<int> (EXIT), static_cast<int> (TEST)); choice) {
 			case EXIT:
 			std::cout << "Your choice is EXIT" << std::endl;
 			is_restart = false;
 			continue;
 			break;
-			case CONSOLE:
-			{
+			case CONSOLE: {
 				input = new ConsoleInput();
 			}
 			break;
 
-			case FILES:
-			{
+			case FILES: {
 				input = new FileInput();
 			}
 			break;
 
-			case TEST:
-			{
+			case TEST: {
+				std::unique_ptr<Test> test(new Test);
+
+				test->start();
+
+				if (!test->get_is_success()) {
+					std::cout << "Sorry, but there is a problem test. The program will be closed." << std::endl;
+					return;
+				}
+				continue;
 			}
 			break;
+		default: ;
 		}
 		std::unique_ptr<Text> text(new Text);
-		bool is_success = input->read(*text);
-		bool is_file_input = input->get_is_file_input();
+		const bool is_success = input->read(*text);
+		const bool is_file_input = input->get_is_file_input();
 		if (is_success) {
 			std::cout << std::endl << "Data read successfully!" << std::endl;
 		} else {

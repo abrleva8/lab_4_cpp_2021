@@ -147,6 +147,7 @@
     <ClCompile Include="input.cpp" />
     <ClCompile Include="menu.cpp" />
     <ClCompile Include="start.cpp" />
+    <ClCompile Include="test.cpp" />
     <ClCompile Include="text_analyzer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -155,6 +156,7 @@
     <ClInclude Include="file_output.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="menu.h" />
+    <ClInclude Include="test.h" />
     <ClInclude Include="text_analyzer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

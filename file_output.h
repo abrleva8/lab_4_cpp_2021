@@ -1,7 +1,6 @@
 #ifndef _FILE_OUTPUT_H_
 #define _FILE_OUTPUT_H_
 
-#include <string>
 #include "text_analyzer.h"
 
 // Класс реализующий запись данных в файл

@@ -1,5 +1,6 @@
 #include "text_analyzer.h"
 
+#include <algorithm>
 #include <iostream>
 #include <sstream>
 
@@ -17,13 +18,14 @@ Text::Text(const std::vector<std::string>& data) {
 
 Text::Text() = default;
 
+auto is_good_symbol{
+  [](const char c) {
+	return '~' >= c && c >= ' ';
+  }
+};
+
 bool Text::is_good_data(const std::string& line) {
-	for (const auto chr : line) {
-		if (chr < ' ' || chr > '~') {
-			return false;
-		}
-	}
-	return true;
+	return std::all_of(line.begin(), line.end(), is_good_symbol);
 }
 
 void Text::count_number_of_lines() {
@@ -126,11 +128,11 @@ void Text::print_info(std::ostream* stream) const {
 	}
 }
 
-void Text::print_sentences(std::ostream* stream) {
-	for (const auto& str : this->sentences_) {
-		std::cout << str << std::endl;
-	}
-}
+//void Text::print_sentences(std::ostream* stream) {
+//	for (const auto& str : this->sentences_) {
+//		std::cout << str << std::endl;
+//	}
+//}
 
 void Text::print_sentences_info(std::ostream* stream) {
 	if (this->has_sentence()) {
@@ -149,7 +151,7 @@ void Text::print_sentences_info(std::ostream* stream) {
 }
 
 int* Text::get_info() const {
-	const auto result = new int[5];
+	const auto result = new int[LENGTH_OF_DATA];
 	result[0] = this->number_of_symbols_;
 	result[1] = this->number_of_visible_symbols_;
 	result[2] = this->number_of_words_;

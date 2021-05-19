@@ -9,7 +9,7 @@
 class Test {
 private:
 	Text data_[NUMBER_OF_TESTS];
-	int answers_[NUMBER_OF_TESTS][5];
+	int answers_[NUMBER_OF_TESTS][LENGTH_OF_DATA];
 	bool is_success_;
 	int check_in();
 public:

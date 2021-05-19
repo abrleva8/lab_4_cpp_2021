@@ -61,8 +61,8 @@ void interface_menu() {
 				}
 				continue;
 			}
+			default: 
 			break;
-		default: ;
 		}
 		std::unique_ptr<Text> text(new Text);
 		const bool is_success = input->read(*text);

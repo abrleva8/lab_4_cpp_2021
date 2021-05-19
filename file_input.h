@@ -7,7 +7,7 @@
 #include "text_analyzer.h"
 
 // Класс, реализующий чтение из файла массива
-class FileInput : public Input {
+class FileInput final : public Input {
 private:
 
 	// Процесс чтения из файла, на корректном файле

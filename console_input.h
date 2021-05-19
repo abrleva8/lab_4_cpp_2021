@@ -6,7 +6,7 @@
 #include <iostream>
 
 // Класс для работы с консольный вводом
-class ConsoleInput : public Input {
+class ConsoleInput final : public Input {
 private:
 	const std::string end_ = "end";
 public:

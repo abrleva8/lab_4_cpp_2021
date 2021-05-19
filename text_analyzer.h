@@ -1,6 +1,8 @@
 #ifndef _TEXT_ANALYZER_H_
 #define _TEXT_ANALYZER_H_
 
+#define LENGTH_OF_DATA 5
+
 #include <vector>
 #include <map>
 #include <string>
@@ -39,7 +41,7 @@ public:
 	static bool is_good_data(const std::string& line);
 	void print(std::ostream* stream = &std::cout);
 	void print_info(std::ostream* stream = &std::cout) const;
-	void print_sentences(std::ostream* stream = &std::cout);
+	/*void print_sentences(std::ostream* stream = &std::cout);*/
 	void print_sentences_info(std::ostream* stream = &std::cout);
 	[[nodiscard]] int* get_info() const;
 };

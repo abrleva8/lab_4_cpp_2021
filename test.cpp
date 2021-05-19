@@ -55,7 +55,7 @@ Test::Test() {
 
 int Test::check_in() {
 	for (int i = 0; i < NUMBER_OF_TESTS; i++) {
-		for (int j = 0; j < 5; j++) {
+		for (int j = 0; j < LENGTH_OF_DATA; j++) {
 			if (int *ans = this->data_[i].get_info(); ans[j] != answers_[i][j]) {
 				std::cout << "The parametr with number " << j << " is wrong." << std::endl;
 				std::cout << "Right answer = " << answers_[i][j] << std::endl;

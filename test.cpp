@@ -56,15 +56,15 @@ Test::Test() {
 int Test::check_in() {
 	for (int i = 0; i < NUMBER_OF_TESTS; i++) {
 		for (int j = 0; j < LENGTH_OF_DATA; j++) {
-			if (int *ans = this->data_[i].get_info(); ans[j] != answers_[i][j]) {
-				std::cout << "The parametr with number " << j << " is wrong." << std::endl;
+			if (std::unique_ptr<int[]> ans = this->data_[i].get_info(); ans[j] != answers_[i][j]) {
+				std::cout << "The parameter with number " << j << " is wrong." << std::endl;
 				std::cout << "Right answer = " << answers_[i][j] << std::endl;
 				std::cout << "Your answer = " << ans[j] << std::endl;
 				return i;
 			}
 		}
 	}
-
+	//delete[] this->answers_;
 	return -1;
 }
 

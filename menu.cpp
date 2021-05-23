@@ -29,7 +29,7 @@ void print_menu() {
 void interface_menu() {
 	bool is_restart = true;
 	ConsoleInput ci;
-	Input* input = nullptr;
+	std::unique_ptr<Input> input;
 
 	do {
 		const FileOutput fo;
@@ -39,14 +39,13 @@ void interface_menu() {
 			std::cout << "Your choice is EXIT" << std::endl;
 			is_restart = false;
 			continue;
-			break;
 			case CONSOLE: {
-				input = new ConsoleInput();
+				input = std::make_unique<ConsoleInput>();
 			}
 			break;
 
 			case FILES: {
-				input = new FileInput();
+				input = std::make_unique<FileInput>();
 			}
 			break;
 

@@ -9,7 +9,7 @@ protected:
 	bool is_file_input_ = false;
 public:
 	// Контракт метода:
-	// 1 - Записать в поле @matrix - матрицу
+	// 1 - Записать в поле @text - текст
 	// 2 - Вернуть успешно или нет
 	virtual bool read(Text& text) = 0;
 

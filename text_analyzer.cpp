@@ -20,7 +20,7 @@ Text::Text() = default;
 
 auto is_good_symbol{
   [](const char c) {
-	return '~' >= c && c >= ' ';
+	return '~' >= c && c >= ' ' || c == '\t';
   }
 };
 
@@ -128,12 +128,6 @@ void Text::print_info(std::ostream* stream) const {
 	}
 }
 
-//void Text::print_sentences(std::ostream* stream) {
-//	for (const auto& str : this->sentences_) {
-//		std::cout << str << std::endl;
-//	}
-//}
-
 void Text::print_sentences_info(std::ostream* stream) {
 	if (this->has_sentence()) {
 		*stream << "The table of sentence frequency" << std::endl;
@@ -150,8 +144,8 @@ void Text::print_sentences_info(std::ostream* stream) {
 	}
 }
 
-int* Text::get_info() const {
-	const auto result = new int[LENGTH_OF_DATA];
+std::unique_ptr<int[]> Text::get_info() const {
+	std::unique_ptr<int[]> result(new int[100]);
 	result[0] = this->number_of_symbols_;
 	result[1] = this->number_of_visible_symbols_;
 	result[2] = this->number_of_words_;

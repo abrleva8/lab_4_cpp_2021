@@ -7,15 +7,12 @@
 #include <iostream>
 
 void greetings() {
-	std::cout << "It is the fourth laboratory task of the first variation. "
-		"The author is Levon Abramyan, Group 404, Course 1st" << std::endl << std::endl;
+	std::cout << "It is the first laboratory task of the first variation. "
+		"The author is Levon Abramyan, Group 404, Course 4th" << std::endl << std::endl;
 
 	std::cout << "The problem is: " << std::endl << std::endl;
 
-	std::cout << "Count the number of characters, words, lines, paragraphs in the given text." << std::endl <<
-		"Calculate the number of words in sentences and display a statistical table in which" << std::endl <<
-		"the length of a sentence in words will correspond to the number of such sentences in the analyzed text."
-		<< std::endl << std::endl;
+	std::cout << "Count the number of words in the given text and print them." << std::endl;
 }
 
 void print_menu() {
@@ -32,7 +29,7 @@ void interface_menu() {
 	std::unique_ptr<Input> input;
 
 	do {
-		const FileOutput fo;
+		// constexpr FileOutput fo;
 		print_menu();
 		switch (const int choice = ci.get_number(static_cast<int> (EXIT), static_cast<int> (TEST)); choice) {
 			case EXIT:
@@ -50,8 +47,7 @@ void interface_menu() {
 			break;
 
 			case TEST: {
-				std::unique_ptr<Test> test(new Test);
-
+				const auto test = std::make_unique<Test>();
 				test->start();
 
 				if (!test->get_is_success()) {
@@ -63,7 +59,8 @@ void interface_menu() {
 			default: 
 			break;
 		}
-		std::unique_ptr<Text> text(new Text);
+
+		auto text = std::make_unique<Text>();
 		const bool is_success = input->read(*text);
 		const bool is_file_input = input->get_is_file_input();
 		if (is_success) {
@@ -72,11 +69,10 @@ void interface_menu() {
 			continue;
 		}
 		if (!is_file_input) {
-			fo.save_input_data(*text);
+			FileOutput::save_input_data(*text);
 		}
 		text->print_info();
-		text->print_sentences_info();
-		fo.save_output_data(*text);
+		FileOutput::save_output_data(*text);
 
 	} while (is_restart);
 }

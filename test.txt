@@ -1,0 +1,18 @@
+The numbers of words in the text equals 14
+Words:
+Moscow
+is
+the
+capital
+of
+Russia
+London
+is
+the
+capital
+of
+the
+United
+Kingdom
+
+

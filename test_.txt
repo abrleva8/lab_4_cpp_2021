@@ -1,0 +1,2 @@
+The numbers of words in the text equals 2
+

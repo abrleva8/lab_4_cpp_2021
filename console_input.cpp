@@ -24,8 +24,8 @@ bool ConsoleInput::read(Text& text) {
 	return true;
 }
 
-bool ConsoleInput::is_choice_yes() const {
-	std::string save;
+bool ConsoleInput::is_choice_yes() {
+	std::string save{};
 	std::getline(std::cin, save);
 	while (save != "y" && save != "n") {
 		std::cout << "Wrong input. Please input y/n" << std::endl;

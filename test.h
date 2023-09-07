@@ -13,7 +13,7 @@ private:
 	Text data_[NUMBER_OF_TESTS];
 
 	//¬ этом поле хран€тс€ ответы на тесты
-	int answers_[NUMBER_OF_TESTS][LENGTH_OF_DATA];
+	int answers_[NUMBER_OF_TESTS];
 
 	//¬ этом поле хранитс€ успешно ли прошло тестирование
 	bool is_success_;
